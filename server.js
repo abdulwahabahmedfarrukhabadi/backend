@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import path from "path";
-
+import cors from 'cors';
 import authRoutes from "./routes/auth.route.js";
 import movieRoutes from "./routes/movie.route.js";
 import tvRoutes from "./routes/tv.route.js";
@@ -17,6 +17,8 @@ const __dirname = path.resolve();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+const cors = require('cors');
+app.use(cors());
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
