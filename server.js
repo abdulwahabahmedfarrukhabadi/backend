@@ -18,8 +18,8 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: ['https://frontend2-theta-self.vercel.app','http://localhost:3000'], // No trailing slash
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: 'https://frontend2-theta-self.vercel.app', // No trailing slash
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 
 // Serve static files
