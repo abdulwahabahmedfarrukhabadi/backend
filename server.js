@@ -17,7 +17,7 @@ const __dirname = path.resolve();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-const cors = require('cors');
+
 app.use(cors());
 
 // Routes
