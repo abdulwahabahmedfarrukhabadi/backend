@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(cors({
   origin: ['https://frontend2-theta-self.vercel.app',"http://localhost:5173"], // No trailing slash
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
 
