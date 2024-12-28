@@ -18,7 +18,7 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173',  // Allow requests from this origin
+  origin: 'https://frontend2-blush.vercel.app',  // Allow requests from this origin
   methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
   credentials: true  // Allow cookies or authentication headers if needed
 }));
