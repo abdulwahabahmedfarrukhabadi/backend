@@ -80,6 +80,11 @@ export async function login(req, res) {
 		if (!isPasswordCorrect) {
 			return res.status(400).json({ success: false, message: "Invalid credentials" });
 		}
+        // After user login
+       localStorage.setItem('token', response.data.token);
+
+       // On subsequent API calls
+       const token = localStorage.getItem('token');
 
 		generateTokenAndSetCookie(user._id, res);
 
