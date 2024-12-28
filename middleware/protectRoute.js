@@ -1,6 +1,17 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
 import { ENV_VARS } from "../config/envVars.js";
+import cors from "cors";
+
+const app = express();
+
+// Set up CORS to allow requests from the frontend domain
+app.use(cors({
+  origin: "https://your-frontend-domain.com", // Replace with your frontend URL
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Authorization,Content-Type", // Include any headers that might be needed
+  credentials: true, // Allow cookies to be sent with the request
+}));
 
 export const protectRoute = async (req, res, next) => {
   try {
