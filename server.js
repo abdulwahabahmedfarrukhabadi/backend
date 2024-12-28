@@ -20,12 +20,14 @@ app.use(cookieParser());
 const corsOptions = {
   origin: 'https://frontend2-blush.vercel.app', // Your frontend's domain
   credentials: true, // Allow cookies to be sent
-  allowedHeaders: ['Content-Type', 'Authorization'],// Allow specific headers
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow OPTIONS method
 };
-
 
 app.use(cors(corsOptions));
 
+// Handle preflight requests
+app.options('*', cors(corsOptions)); 
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
