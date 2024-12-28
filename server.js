@@ -20,7 +20,9 @@ app.use(cookieParser());
 const corsOptions = {
   origin: 'https://frontend2-theta-self.vercel.app', // Your frontend's domain
   credentials: true, // Allow cookies to be sent
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
 };
+
 
 app.use(cors(corsOptions));
 
