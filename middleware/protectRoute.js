@@ -4,33 +4,33 @@ import { ENV_VARS } from "../config/envVars.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
-    // Step 1: Retrieve the token from cookies
-    const token = req.cookies["jwt-netflix"];
+    // Retrieve token from cookies or headers
+    const token = req.cookies["jwt-netflix"] || req.headers.authorization?.split(" ")[1];
     if (!token) {
-      return res.status(401).json({ success: false, message: "Unauthorized" });
+      return res.status(401).json({ success: false, message: "Unauthorized - Token Missing" });
     }
 
-    // Step 2: Verify the token using the secret key
+    // Verify token
     let decoded;
     try {
       decoded = jwt.verify(token, ENV_VARS.JWT_SECRET);
     } catch (error) {
       return res.status(401).json({
         success: false,
-        message: error.name === "TokenExpiredError" ? "Unauthorized" : "Invalid Token",
+        message: error.name === "TokenExpiredError" ? "Token Expired" : "Invalid Token",
       });
     }
 
-    // Step 3: Check if the user exists based on the decoded userId
+    // Check if user exists
     const user = await User.findById(decoded.userId).select("-password");
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User Not Found" });
     }
 
-    // Step 4: Attach the user information to the request object
+    // Attach user to request
     req.user = user;
 
-    // Step 5: Call the next middleware or route handler
+    // Proceed to the next middleware or route handler
     next();
   } catch (error) {
     console.error("Error in protectRoute middleware:", error.message);
