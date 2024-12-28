@@ -4,8 +4,8 @@ import { ENV_VARS } from "../config/envVars.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
-    // Step 1: Retrieve the token from cookies
-    const token = req.cookies["jwt-netflix"];
+    // Step 1: Retrieve the token from cookies or authorization header
+    const token = req.cookies["jwt-netflix"] || req.headers.authorization?.split(" ")[1];
     if (!token) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
@@ -17,7 +17,7 @@ export const protectRoute = async (req, res, next) => {
     } catch (error) {
       return res.status(401).json({
         success: false,
-        message: error.name === "TokenExpiredError" ? "Unauthorized" : "Invalid Token",
+        message: error.name === "TokenExpiredError" ? "Token expired, please log in again" : "Invalid token",
       });
     }
 
@@ -34,6 +34,6 @@ export const protectRoute = async (req, res, next) => {
     next();
   } catch (error) {
     console.error("Error in protectRoute middleware:", error.message);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
