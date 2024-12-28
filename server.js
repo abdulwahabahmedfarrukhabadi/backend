@@ -14,18 +14,19 @@ import { protectRoute } from "./middleware/protectRoute.js";
 const app = express();
 const __dirname = path.resolve();
 
-const corsOptions = {
-  origin: 'https://frontend2-blush.vercel.app',  // Allow this origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],   // Allow these HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'],  // Allow these headers
-  credentials: true,  // Allow cookies or authentication headers
-};
+const allowedOrigins = ['https://frontend2-blush.vercel.app'];  // Add your frontend URL here
 
-app.use(cors(corsOptions));
-
-// Ensure to handle preflight requests properly
-app.options('*', cors(corsOptions));  // Preflight request
-
+app.use(cors({
+  origin: function(origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Add methods as needed
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Add headers as needed
+}));
 
 
 // Middleware
