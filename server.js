@@ -17,17 +17,16 @@ const __dirname = path.resolve();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-const corsOptions = {
-  origin: 'https://frontend2-blush.vercel.app/api/v1/auth/authCheck', // Your frontend's domain
-  credentials: true, // Allow cookies to be sent
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow OPTIONS method
-};
+app.use(cors({
+  origin: 'http://localhost:5173',  // Allow requests from this origin
+  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
+  credentials: true  // Allow cookies or authentication headers if needed
+}));
 
-app.use(cors(corsOptions));
+
 
 // Handle preflight requests
-app.options('*', cors(corsOptions)); 
+app.options('*', cors); 
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
