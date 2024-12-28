@@ -17,11 +17,13 @@ const __dirname = path.resolve();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: ['https://frontend2-theta-self.vercel.app',"http://localhost:5173"], // No trailing slash
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-}));
+const corsOptions = {
+  origin: 'https://frontend2-theta-self.vercel.app', // Your frontend's domain
+  credentials: true, // Allow cookies to be sent
+};
+
+app.use(cors(corsOptions));
+
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
