@@ -18,7 +18,7 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 const corsOptions = {
-  origin: 'https://frontend2-blush.vercel.app', // Your frontend's domain
+  origin: 'https://frontend2-blush.vercel.app/api/v1/auth/authCheck', // Your frontend's domain
   credentials: true, // Allow cookies to be sent
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow OPTIONS method
