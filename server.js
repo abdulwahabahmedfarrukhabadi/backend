@@ -14,10 +14,6 @@ import { protectRoute } from "./middleware/protectRoute.js";
 const app = express();
 const __dirname = path.resolve();
 
-// Middleware
-app.use(express.json());
-app.use(cookieParser());
-
 const corsOptions = {
   origin: 'https://frontend2-blush.vercel.app',  // Allow this origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],   // Allow these HTTP methods
@@ -29,6 +25,13 @@ app.use(cors(corsOptions));
 
 // Ensure to handle preflight requests properly
 app.options('*', cors(corsOptions));  // Preflight request
+
+
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
