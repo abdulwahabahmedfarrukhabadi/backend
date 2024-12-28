@@ -20,7 +20,7 @@ app.use(cookieParser());
 const corsOptions = {
   origin: 'https://frontend2-blush.vercel.app', // Your frontend's domain
   credentials: true, // Allow cookies to be sent
-  // Allow specific headers
+  allowedHeaders: ['Content-Type', 'Authorization'],// Allow specific headers
 };
 
 
