@@ -17,16 +17,20 @@ const __dirname = path.resolve();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: 'https://frontend2-blush.vercel.app',  // Allow requests from this origin
-  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
-  credentials: true  // Allow cookies or authentication headers if needed
-}));
 
 
+const corsOptions = {
+  origin: 'https://frontend2-blush.vercel.app',  // Allow this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],   // Allow these HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Allow these headers
+  credentials: true,  // Allow cookies or authentication headers
+};
 
-// Handle preflight requests
-app.options('*', cors); 
+app.use(cors(corsOptions));
+
+// Ensure to handle preflight requests properly
+app.options('*', cors(corsOptions));  // Preflight request
+ 
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
