@@ -18,7 +18,7 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'https://frontend2-theta-self.vercel.app', // No trailing slash
+  origin: ['https://frontend2-theta-self.vercel.app',"http://localhost:5173"], // No trailing slash
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
