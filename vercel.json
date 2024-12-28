@@ -1,24 +1,36 @@
 {
-    "name":"netflix mern",
-    "version":2,
+    "version": 2,
     "builds": [
-        {"src": "server.js" 
-        ,"use":"@vercel/node"
-    },
-    {
-        "src": "src/**/*",
-        "use":"@vercel/static"
-    }
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
     ],
-    "routes":[
-        {
-        "src":"/(.*)",
-        "dest": "/server.js",
-        "methods":["GET","POST","PUT","DELETE","PATCH","OPTION"],
-        "headers":{
-            "Access-Control-Allow-Origin":"*"
-        }
+    "routes": [
+      {
+        "src": "/api/v1/auth/(.*)",
+        "dest": "server.js"
+      },
+      {
+        "src": "/api/v1/movie/(.*)",
+        "dest": "server.js"
+      },
+      {
+        "src": "/api/v1/tv/(.*)",
+        "dest": "server.js"
+      },
+      {
+        "src": "/api/v1/search/(.*)",
+        "dest": "server.js"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "server.js"
+      }
+    ],
+    "installCommand": "npm install",
+    "env": {
+      "NODE_ENV": "production"
     }
-    ]
-
-}
+  }
+  
